@@ -148,5 +148,49 @@ namespace GetContentPDF
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
         }
+
+        private void FrmMain_DragDrop(object sender, DragEventArgs e)
+        {
+            picDone.Visible = false;
+            string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+
+            // Get Extension of dragged file 
+            string ext = Path.GetExtension(path);
+
+            // Condition >> Drag Folder
+            if (Directory.Exists(path))
+            {
+                txtBoxPath.Text = path;
+                fileCount = SearchDirectoryTree(path, out PDFfiles);
+                // Check the Empty Folder
+                lblCountPDF.Text = fileCount == 0 ? "Your Folder is Empty" : fileCount + " files.";
+            }
+
+            // Condition >> Drage one PDF file
+            else if (ext == ".pdf")
+            {
+                txtBoxPath.Text = path;
+                PDFfiles = new string[] { path };
+                fileCount = 1;
+                lblCountPDF.Text = fileCount + " files.";
+            }
+            else
+                PDFfiles = null;
+        }
+
+        private void FrmMain_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+            lblDone.Text = "";
+            lblAlert.Text = "";
+            picDone.Visible = false;
+            txtBoxPath.Text = "Select your folder ...";
+            lblCountPDF.Text = "...";
+        }
+
+        private void FrmMain_DragLeave(object sender, EventArgs e)
+        {
+
+        }
     }
 }
