@@ -1,4 +1,4 @@
-﻿namespace GetContentPDF
+namespace GetContentPDF
 {
     partial class FrmMain
     {
@@ -144,6 +144,7 @@
             // 
             // FrmMain
             // 
+            AllowDrop = true;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(623, 237);
@@ -161,6 +162,9 @@
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Get Content PDF";
+            DragDrop += FrmMain_DragDrop;
+            DragEnter += FrmMain_DragEnter;
+            DragLeave += FrmMain_DragLeave;
             ((System.ComponentModel.ISupportInitialize)picDone).EndInit();
             ResumeLayout(false);
             PerformLayout();
